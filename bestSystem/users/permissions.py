@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from .models import UserRole
+from .models import UserRole,User,Team,Branch
 
 class IsCompanyBoss(permissions.BasePermission):
     """Allows access only to users with role=company_boss."""
