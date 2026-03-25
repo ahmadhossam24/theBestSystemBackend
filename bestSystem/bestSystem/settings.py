@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',  # optional, for logout blacklisting
     'django_filters'
 ]
 
@@ -71,14 +73,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bestSystem.wsgi.application'
 
-
+AUTH_USER_MODEL = 'users.User'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',   # Use PostgreSQL backend
+        'NAME': 'thebestsystem',                        # Your database name
+        'USER': 'postgres',                            # PostgreSQL username
+        'PASSWORD': '123',                    # PostgreSQL password
+        'HOST': 'localhost',                         # Or IP address of your DB server
+        'PORT': '5432',                              # Default PostgreSQL port
     }
 }
 
@@ -92,6 +98,14 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
+}
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,  # requires 'token_blacklist' app
 }
 
 # Password validation

@@ -81,6 +81,19 @@ class User(AbstractUser):
     # Edits will be logged via the generic EditLog model (see below)
     edits = GenericRelation('EditLog')
 
+    groups = models.ManyToManyField(
+        'auth.Group',
+        blank=True,
+        related_name='custom_user_set',
+        related_query_name='user',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        blank=True,
+        related_name='custom_user_set',
+        related_query_name='user',
+    )
+
     class Meta:
         db_table = 'users'
         indexes = [

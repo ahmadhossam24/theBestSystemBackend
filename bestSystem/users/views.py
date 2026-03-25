@@ -10,6 +10,11 @@ from .serializers import (
 )
 from .permissions import IsCompanyBoss, IsBranchAdmin, IsTeamAdmin, IsOwnerOrCreator, IsCreatorOrAdmin
 from datetime import timezone
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import status
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -191,3 +196,57 @@ class EditLogViewSet(viewsets.ReadOnlyModelViewSet):
             return EditLog.objects.filter(content_type__model='user', object_id=user.id)
         else:
             return EditLog.objects.none()
+        
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            refresh_token = request.data.get("refresh")
+            if refresh_token:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+# authentication Example usage
+#############################
+# Login (obtain token):
+# POST /api/token/
+# Content-Type: application/json
+# {
+#     "username": "admin",
+#     "password": "password"
+# }
+# Response:
+# {
+#     "refresh": "eyJhbGciOiJIUzI1NiIs...",
+#     "access": "eyJhbGciOiJIUzI1NiIs...",
+#     "user_id": 1,
+#     "role": "company_boss",
+#     "name": "Admin User"
+# }
+###############################
+# Access protected resource:
+# GET /api/users/me/
+# Authorization: Bearer <access_token>
+###############################
+# Refresh token:
+# POST /api/token/refresh/
+# {
+#     "refresh": "<refresh_token>"
+# }
+###############################
+# Logout (if blacklist enabled):
+# POST /api/logout/
+# Authorization: Bearer <access_token>
+# {
+#     "refresh": "<refresh_token>"
+# }
+
+# Endpoint	Method	Purpose
+# /api/token/	POST	Login – returns access and refresh tokens
+# /api/token/refresh/	POST	Refresh expired access token
+# /api/token/blacklist/	POST	Logout – blacklists refresh token (requires token_blacklist app)
+# /api/logout/	POST	(Optional) custom logout that uses blacklist
