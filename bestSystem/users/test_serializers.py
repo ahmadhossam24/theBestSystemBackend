@@ -379,7 +379,6 @@ class UserSerializerCreatorPermissionsTest(TestCase):
 
     def test_branch_admin_cannot_create_user_in_other_branch(self):
         team_in_other = make_team(self.branch2, self.boss, name="Foreign Team")
-        print(team_in_other.id)
         s = self._serialize({
             "username": "ag3", "name": "Ag3",
             "role": UserRole.TEAM_AGENT,

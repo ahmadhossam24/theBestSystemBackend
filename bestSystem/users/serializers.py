@@ -168,7 +168,10 @@ class UserSerializer(serializers.ModelSerializer):
                 if role not in [UserRole.TEAM_ADMIN, UserRole.TEAM_AGENT]:
                     raise serializers.ValidationError("Branch admin can only create team admins and team agents.")
                 # Ensure branch is the creator's branch
-                if branch and branch != creator.branch:
+                # Determine effective branch (either provided or derived from team)
+                effective_branch = branch or (team.branch if team else None)
+
+                if effective_branch and effective_branch != creator.branch:
                     raise serializers.ValidationError("Branch admin can only create users in their own branch.")
             elif creator.role == UserRole.TEAM_ADMIN:
                 # can create team_agent only under their team
