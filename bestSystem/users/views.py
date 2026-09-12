@@ -221,8 +221,8 @@ class LogoutView(APIView):
 # }
 # Response:
 # {
-#     "refresh": "eyJhbGciOiJIUzI1NiIs...",
-#     "access": "eyJhbGciOiJIUzI1NiIs...",
+    # "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc4OTU0NzYxMiwiaWF0IjoxNzg4OTQyODEyLCJqdGkiOiIyNTg4OTQxOWI1MTA0NDcxYTM4NWVmYWUzNGYyMzhlNyIsInVzZXJfaWQiOiIxIn0.bH7jkKa-ypA2GV0Z8SCxZs0LF7NNK68S71bk7yKlTC0",
+    # "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg5MDI5MjEyLCJpYXQiOjE3ODg5NDI4MTIsImp0aSI6IjZhNmY2ZTY1OGUzNjRkY2NhOTRhNzBkOGFhZWU5ZDMyIiwidXNlcl9pZCI6IjEifQ.Nr3Nky60aFj1FF6E0NAqCNQakmuoSscPHniWiZKczmA",
 #     "user_id": 1,
 #     "role": "company_boss",
 #     "name": "Admin User"

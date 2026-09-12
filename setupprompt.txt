@@ -1,0 +1,56 @@
+i want you to implement me the following:
+views-models-urls-serializers if it is suitable 
+note that i installed Django rest framework in the project
+for models i will give you tables and attrs
+for views i will tell you the functionalities i want and you implement views with documentation for every view when to use 
+models:
+table main
+- landline
+- customer name
+- date added by user 
+- phone contact 
+- assigned agent (fk from app users models table User )
+- transactions history
+- feedback (choices)
+- data type(choices)
+- agent call notes
+table to_create_data
+- row (fk form main table) 
+- SRs
+- creation_date
+- red_or_normal (choices)
+- apply_phone
+- additional_phone
+- landline_owner_extra
+- customer_name_extra
+- package_name(choices)
+- has_modem
+- pay_method(choices)
+- creation_notes
+table month_collection
+- row (fk from main table)
+- GSM
+- active_date
+- visit_date
+- status (choices: assigned,pending)
+- pending cause
+- month_collection_notes
+- n/a_or_date
+table mail_response_store
+- row (fk from main table)
+- creation_date
+- sfid
+- account_name
+- RTM
+- stasus
+- case
+- type 
+- price_group
+- rate_plan
+- gsm
+- srid
+- parent_sr 
+- adsl_number
+- address
+- contact
+- landline
